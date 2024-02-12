@@ -30,12 +30,16 @@ class Record:
         self.phones = [phone for phone in self.phones if phone.value != phone_number]
 
     def edit_phone(self, old_phone_number, new_phone_number):
+        if not (isinstance(new_phone_number, str) and new_phone_number.isdigit() and len(new_phone_number) == 10):
+            raise ValueError("Invalid new phone number format")
+
         found = False
         for phone in self.phones:
             if phone.value == old_phone_number:
                 phone.value = new_phone_number
                 found = True
                 break
+
         if not found:
             raise ValueError(f"Phone number {old_phone_number} not found")
 
